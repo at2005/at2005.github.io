@@ -43,6 +43,10 @@ button:hover {
      
 }
 
+#desc {
+    margin-top:20%;
+}
+
 
 ul {
     font-size: 120%;
@@ -65,5 +69,9 @@ li {
     font-weight: bold;
     padding-left:25%;
     padding-right:25%;
+    margin-bottom:25%;
 }
 
+footer {
+    margin-left:0%;
+}
