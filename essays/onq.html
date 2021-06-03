@@ -9,71 +9,54 @@
             <h1 class = "header">On Q</h1>
             <article class = "essay_body">
                 <p>
-                    Whenever I get asked why I began work on Q, I tend to say stuff like, "Oh, well certain aspects of 
+                    Whenever I'm asked why I began work on Q, I tend to say stuff like, "Oh, well certain aspects of 
                     quantum algorithms can be quite hard to code by hand in today's gate-based environment", and then go off
                     on a whole explanation of oracles and classical functions, and then how Q provides a more user-friendly
                     way to implement them.
                 </p>
                 <p>
-                    To be completely honest, though, that's not really why I decided to make it. Sure, it felt great to
-                    say that Q could do some things better than other languages, but it's not like I went, "Hey, I want to 
-                    make it easier to code oracles. Let's spend the entire year trying to do that!".
+                    Though that's not really why I decided to make it. Sure, it felt great to
+                    say that Q could do some things better than other languages, but adding state-of-the-art features was
+                    not a design goal.
                 </p>
                 <p>
-                    No, the main reason is because it seemed like an interesting thing to do. I like
-                    building things from the ground up. I don't know why, but even the thought of <i>extending</i> software
-                    triggers unfavourable chemical responses up there. If someone were to hand over
+                    I built Q because it seemed like an interesting thing to do. I like
+                    building things from the ground up, and I don't know why, but even the thought of <i>extending</i> software
+                    triggers unfavourable chemical responses in my brain. If someone were to hand over
                     the entire codebase for say, Facebook, and asked me to manage it, then I can pretty much guarantee you'll
                     see me working on a re-implementation. That's also why the option of extending QISKit or other frameworks seemed so bizarre. 
-                    It's not that I didn't want to, it's just, I prefer building new things, and the notion of being able to build my own
+                    It's not that wasn't able to, it's just, I prefer building new things, and the notion of being able to build my own
                     language seemed much more powerful than writing some library.
                 </p>
 
                 <p>
-                    Another reason is that with Q I had complete creative freedom, a blank canvas if you will.    
-                    While the likes of Silq and Q# do seem pretty cool,
-                    I've never tried to use them and neither do I wish to. They may be powerful, 
-                    and no doubt have exquisite features that ensure rivals quake in their (binary) boots, 
-                    but to me they seem unnecessarily pedantic. QISKit is an exception, however; I believe IBM has done a pretty amazing
-                    job in making QISKit actually feel good to use, but it's
-                    Python-based, and I don't use Python for much programming apart from scripting and data-analysis.
-                    Q was basically a way of remaking QISKit in the style of C[<a href="#ref1" style = "color:black; text-decoration: none;">0</a>] - 
-                    the whole project can be framed in terms of designing a language <i>I'd</i> feel comfortable programming in.
-                </p>
-
-                <p>
-                    That's not exactly publishable though. I can't just waltz in and say, 
-                    "Look, I made a language that <i>I</i> believe is much more aesthetically pleasing" -
-                    not very scientific, is it?
-                    Rather, I have to play on Q's strengths and portray them as
-                    distinguishing features. For example, one of the main things I wanted in Q were arithmetic/logical
-                    operators. Turns out, the way Q implements these are much more compact than QISKit or Q#,
-                    so now the title of my report is: <br> "A Higher-Level Programming Language For Quantum Oracle Construction". 
+                    With Q I had complete creative freedom over
+                    the language, a blank canvas if you will. It allowed me to explore syntaxes, experiment with form, 
+                    and also add a few last-minute Easter-eggs into the compiler:)
+                    <br>
+                    I certainly do love QISKit, and no doubt it's an engineering marvel, but my only qualm is
+                    that it's Python-based. I'm a C-person, and I really like curly braces,
+                    so in a way, Q was a way of remaking QISKit in the style of C.
                 
-
+                    
                 </p>
 
                 <p>
-                    As a final note, I want discuss why I named it "Q".
+                    Right now you might be thinking, <i>okay, but why call it Q?</i>
                     Like, why the one letter that is literally used everywhere in the industry?
-                    Actually, at first it wasn't. For most of its development phase, it was called... 
-                    <br>
-                    < insert drumroll >
-                    <br>
-                     Q++ !
-                    <br>
-                    ...since I was writing the compiler in C++. However, I realized that I could make an object-oriented
+                    Actually, at first it wasn't. For most of its development phase, it was referred to as Q++
+                    since I was writing the compiler in C++. However, I realized that I could design an object-oriented
                     version, and it seemed a lot more fitting to call that one "Q++".
                     <br>
-                    <br>
                     Honestly though, I couldn't think of a name.
-                    I mean, what else was I meant to call it? "Qobra", a rip-off of Python?
+                    I mean, what else was I meant to call it? A number of ideas came to mind
+                    (all rejected, for good reasons), "Qobra", (a rip-off of Python?)
                     Or maybe QRust, and have the logo be a half-eaten slice of pizza?
-                    Q was a name that actually sounded good and wasn't too cringey.
+                    Eventually I settled on Q. Simple, succinct, and most importantly
                 </p>
 
                 <p>
-                    I'm probably going to end up open-sourcing the compiler code, and that'll
+                    I'm likely going to end up open-sourcing the compiler code, and that'll
                     be when I have a decent piece written-up on the language itself. Until then,
                     if anyone wants to try Q out, just email me at tambdeayush@gmail.com
                 </p>
@@ -82,17 +65,6 @@
             </article>
 
           
-        </div>
-
-        <div>
-            <footer id = "ref1">
-                <h3>Notes</h3>
-                <p>
-                    [0] C is my language of choice for programming,
-                    therefore I am more comfortable using C-style
-                    languages.
-                </p>
-            </footer>
         </div>
     </body>
 </html>
