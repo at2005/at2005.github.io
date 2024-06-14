@@ -1,20 +1,32 @@
 
 function Menu ({setCurrentPage}:any) {
   return (
-    <div>
+    <div className="MainMenu">
         <nav>
             <ul>
             <li>
                 <a href="#" onClick={() => setCurrentPage('home')}>HOME</a>
             </li>
             <li>
+                |
+            </li>
+            <li>
                 <a href="#" onClick={() => setCurrentPage('work')}>WORK</a>
             </li>
+            <li>
+                |
+            </li> 
             <li>
                 <a href="#" onClick={() => setCurrentPage('blog')}>BLOG</a>
             </li>
             <li>
-                <a href="#" onClick={() => setCurrentPage('books')}>MEDIASHELF</a>
+                |
+            </li>
+            <li>
+                <a href="#" onClick={() => setCurrentPage('books')}>LIBRARY</a>
+            </li>
+            <li>
+                |
             </li>
             <li>
                 <a href="#" onClick={() => setCurrentPage('about')}>ABOUT</a>

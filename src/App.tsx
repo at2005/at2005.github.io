@@ -6,6 +6,7 @@ import Blog from './blog';
 import Work from './work';
 import About from './about';
 import Books from './books';
+import "./App.css";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("");
@@ -13,7 +14,7 @@ function App() {
   return (
     <>
       <Menu setCurrentPage={setCurrentPage}/>
-      {currentPage === "home" && <Home/>}
+      {(currentPage === "home" || currentPage === "") && <Home/>}
       {currentPage === "work" && <Work/>}
       {currentPage === "about" && <About/>}
       {currentPage === "blog" && <Blog/>}  

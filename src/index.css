@@ -15,17 +15,18 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  
 }
 a:hover {
   color: #535bf2;
 }
 
 body {
-  margin: 0;
-  display: flex;
+  /* margin: 0; */
+  /* display: flex; */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -70,4 +71,15 @@ button:focus-visible {
 ul {
   list-style-type: none;
   padding: 0;
+  font-size: 3em;
+}
+
+li {
+  margin-left: 0.75em;
+  display: inline;
+}
+
+.initMsg {
+  margin-top: 22%;
+  color:#03544c
 }

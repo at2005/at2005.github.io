@@ -1,8 +1,8 @@
 function Blog() {
     return (
         <div>
-            <h1>Blog</h1>
-            <p>Blog content goes here</p>
+
+        <h2>Working on it lol</h2>
         </div>
     )
 }
