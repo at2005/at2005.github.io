@@ -4,6 +4,7 @@ function Home() {
             <h1>Hello!</h1>
             <h2>My name is Ayush and I really like physics + computing</h2>
             <h2>Location: mostly 🇮🇪, currently San Francisco</h2>
+            <h2>This site is under construction 🔨</h2>
         </div>
     );
 }
