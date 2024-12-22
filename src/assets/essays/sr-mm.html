@@ -1,0 +1,44 @@
+<div>
+    Why was the principle of operation of the Michelson-Morley experiment, per 19th-century physics, correct?
+
+This discussion uses 19th-century physics to argue the physical basis of the Michelson-Morley experiment. In modern relativity, the speed of light is constant in all reference frames and there is no special, privileged frame.
+
+(Note: I use speed here instead of “velocity”, because we do not really care about direction here and simply magnitudes (or those of constituent components)
+
+I think the key is to realize that there are two different reference frames at play here, 1) that of the hypothetical ether, and 2) Earth’s reference frame. By distinguishing between the two, we can answer the question of why we should even measure any phase difference. We need to be especially particular about definitions: the speed of light is only c as measured relative to the ether.
+
+How do we define phase difference? Suppose we replaced a continuous sine wave with a large set of discrete points. Then we get rid of the points that are not on the “peak” of the wave. If there is a phase difference, points from two different waves will arrive at the source (after making the round-trip) at two different times.
+
+Suppose an object is emitted inside a train that travels at speed c relative to an outside reference frame. This setup is identical to labeling the station platform as the ether and the train as Earth. Measuring Earth’s speed through the ether ~ standing on a train platform and measuring the speed of an incoming carriage.
+
+ We will do this by firing pulses, ie photons (particles traveling at the speed of light, ie our “points” on a wave as described above”), at some frequency, ie some fixed time intervals apart from the perspective of Earth, reflecting them from mirrors placed at the ends of orthogonal axes, and determining whether or not they return to the source at the same time.
+
+Relative to the ethereal observer, this object travels at speed c. (Why? Because Maxwell’s equations predict the speed of light to be constant, and the 19th-century interpretation was to assume that there existed a privileged, absolute reference frame – the ether – in which the speed was 2.99… * 10^8). However, for the people on Earth, who are traveling at speed v relative to the ether, the resulting speed of the photon is simply the difference (c-v). So from the people's perspective on Earth, the photon’s speed is less than what some godlike entity sitting at the edge of the ether measures.
+
+(Sanity check: for example, let us take the case where v=c, ie the ethereal observer sees the Earth going at the same speed as the photon inside it, which means that both are stationary relative to each other, ie c-v = speed of photon relative to Earth = 0. When v=0, then the Earth is stationary relative to the ether and so the photon moves at speed c, which is our assumption)
+
+The photon arrives at the mirror at time t=t_1. The distance it travels, from Earth’s perspective, is (c-v)*t_1 = L, where L is the (Earthian) distance between the source and the mirror. So, t_1 = L/(c-v).
+
+The photon is then reflected. It travels in the opposite direction. From the perspective of the ether, its speed is still c, since that is how we interpret the output of Maxwell’s equations. However, its speed is now c+v relative to the Earth, since it is traveling opposite to Earth’s speed.
+
+Suppose it arrives at the source at time t=t_2. The distance it covers, in Earth’s reference frame, is t_2*(c+v) = L. Therefore, t_2 = L/(c+v). The total time it took for the photon to go to the mirror and back, from somebody on Earth, is T = t_1 + t_2 = L(1/(c-v) + 1/(c+v)) = 2*L*c / (c^2-v^2).
+
+Let us consider the other photon, which was fired orthogonally in the direction of motion. This photon travels at speed c relative to the ether. For this to make sense, the horizontal and vertical components squared + added here must equal c^2. The horizontal component is v since that is Earth’s speed. The vertical component can be calculated as c^2 = v^2 + x^2, x = sqrt(c^2 - v^2) = the speed at which the photon travels upwards on Earth.
+
+The “Earthian” distances are assumed to be equal, so the time this photon arrives at its mirror is L/sqrt(c^2 - v^2). When it returns to the source, from the perspective of the ether the speed is still c, and the horizontal speed is still v, so the above relation holds for the time taken to return and we find our total time to be:
+
+T* = 2L/sqrt(c^2 - v^2). 
+
+Which is different from the time it took our first photon to make the trip!!
+
+Therefore, by measuring the interference pattern, we can figure out the phase difference. Since we know this depends on the time delta between photons arriving at the source (and also the constants c and L), we can work out what v, the speed of the Earth traveling through the hypothetical ether is.
+
+Addendum:
+
+T/T* = c/sqrt(c^2 - v^2)). Suppose we take the c^2 out of the denominator, to get: c / ((sqrt(c^2) * sqrt(1- (v/c)^2))) = 1/sqrt(1-v^2/c^2).
+
+Since no interference was found, the two photons must have arrived at the same time. Suppose we say that the length of the axis along which the first photon travels is not L, but a reduced L’ = L(sqrt(1-v^2/c^2)). Now, T = T* → the experimental results make sense.
+
+We have actually derived the formula for length contraction!
+
+</div>

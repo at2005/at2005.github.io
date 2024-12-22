@@ -1,36 +1,24 @@
 
-function Menu ({setCurrentPage}:any) {
+function Menu ({setCurrentPage, locations}:any) {
+let menuItems = locations.map((location : any, i : number) => {
+     const id_css = i === 1 ? "current" : "";
+      return (
+        <>
+        {i === 0 ? null : 
+        <li>
+            |[o]|
+        </li>}
+      <li key={location}>
+        <a id={id_css} href="#" onClick={(e) => {e.preventDefault(); setCurrentPage(location);}}>{location.toUpperCase()}</a>
+        </li>
+        </>
+    );});
+
   return (
     <div className="MainMenu">
         <nav>
             <ul>
-            <li>
-                <a href="#" onClick={() => setCurrentPage('home')}>HOME</a>
-            </li>
-            <li>
-                |
-            </li>
-            <li>
-                <a href="#" onClick={() => setCurrentPage('work')}>WORK</a>
-            </li>
-            <li>
-                |
-            </li> 
-            <li>
-                <a href="#" onClick={() => setCurrentPage('blog')}>BLOG</a>
-            </li>
-            <li>
-                |
-            </li>
-            <li>
-                <a href="#" onClick={() => setCurrentPage('books')}>LIBRARY</a>
-            </li>
-            <li>
-                |
-            </li>
-            <li>
-                <a href="#" onClick={() => setCurrentPage('about')}>ABOUT</a>
-            </li>
+            {menuItems}
             </ul>
         </nav>
     </div>
