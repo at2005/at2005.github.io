@@ -1,29 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+// import React, { useEffect, useRef } from 'react';
 
-declare global {
-    interface Window {
-      MathJax: any;
-    }
-  }
+// declare global {
+//     interface Window {
+//       MathJax: any;
+//     }
+//   }
   
-  interface MathComponentProps {
-    tex: string;
-  }
+//   interface MathComponentProps {
+//     tex: string;
+//   }
   
-  const MathComponent: React.FC<MathComponentProps> = ({ tex }) => {
-    const ref = useRef<HTMLDivElement>(null);
+  // const MathComponent: React.FC<MathComponentProps> = ({ tex }) => {
+  //   const ref = useRef<HTMLDivElement>(null);
   
-    useEffect(() => {
-      if (!ref.current) return;
+  //   useEffect(() => {
+  //     if (!ref.current) return;
   
-      const mathJax = window.MathJax;
-      if (mathJax) {
-        mathJax.Hub.Queue(['Typeset', mathJax.Hub, ref.current]);
-      }
-    }, [tex]);
+  //     const mathJax = window.MathJax;
+  //     if (mathJax) {
+  //       mathJax.Hub.Queue(['Typeset', mathJax.Hub, ref.current]);
+  //     }
+  //   }, [tex]);
   
-    return <div ref={ref}>{`\\[${tex}\\]`}</div>;
-  };
+  //   return <div ref={ref}>{`\\[${tex}\\]`}</div>;
+  // };
 
 
 
