@@ -70,29 +70,39 @@ p {
     background-color: #f9f9f9;
   }
 }
+/* Default list style for all lists */
 ul {
   list-style-type: none;
   padding: 0;
-  font-size: 1.5em;
 }
 
+/* Style for the "Currently" list items */
+#currentlist {
+  font-size: 1.05em;
+}
+
+#currentlist li {
+  margin-left: 1.6em;
+  display: inline;
+  padding: 1.2em;
+}
+
+/* Style for the "Previous cool stuff" list */
 #normallist {
   font-size: 1.05em;
 }
 
-li {
-  margin-left: 1.6em;
-  display: inline;
-  padding: 1.2em;
-
+#normallist li {
+  display: block !important;
+  margin: 0.4em 0;
+  padding: 0.4em;
 }
 
 .initMsg {
-  margin-top: 10%;
-  color:#03544c;
-  /* align */
+  margin-top: -1%;
+  color: #03544c;
   text-align: center;
-  margin-left: -3%;
+  margin-left: 0;
 }
 
 #current {
@@ -102,10 +112,112 @@ li {
 
 .MainMenu {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   position: fixed;
-  top: 0;
-  left: -3.6%;
+  top: 10px;
+  left: 0;
+}
+
+.MainMenu {
+  position: relative;
+}
+
+.hamburger {
+  margin-left: -15%;
+  z-index: 1000;
+  background-color: transparent !important;
+  border: none;
+  padding: 5px;
+  box-shadow: none;
+}
+
+.hamburger:hover,
+.hamburger:focus,
+.hamburger:focus-visible {
+  background-color: transparent !important;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #333;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+nav {
+  position: fixed;
+  top: 10%;
+  left: 2%;
+  width: auto;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  margin: 10px 0;
+  padding: 0;
+  text-align: left;
+}
+
+nav a {
+  color: #000000;
+}
+
+nav li a:hover {
+  color: #646cff;
+}
+
+/* Style for hamburger when menu is open */
+.hamburger.active span {
+  background: white;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+/* Add mobile-specific styling */
+@media screen and (max-width: 768px) {
+  #normallist {
+    text-align: left;
+    padding-left: 2em;  /* Add some padding for the bullets */
+  }
+
+  #normallist li {
+    display: block;  /* Change from inline to block */
+    margin: 0.5em 0;  /* Add vertical spacing between items */
+    padding: 0.8em;
+  }
+
+  #currentlist {
+    padding: 0 20px;  /* Add consistent horizontal padding */
+  }
+  
+  #currentlist li {
+    display: block;
+    margin: 0 0 12px 0;  /* Remove left margin, add consistent bottom margin */
+    padding: 0;  /* Remove padding to align with other content */
+    text-align: left;  /* Align text to the left */
+  }
+  
+  #currentlist li:last-child {
+    margin-bottom: 0;  /* Remove margin from last item */
+  }
+}
+
+/* Add mobile-specific positioning */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    margin-left: 5px;  /* Positive margin for mobile */
+  }
 }

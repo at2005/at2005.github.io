@@ -40,3 +40,32 @@
 .read-the-docs {
   color: #888;
 }
+
+@media (max-width: 768px) {
+    nav {
+        border-right: none !important;
+        position: sticky !important;
+        top: 0;
+        background-color: white;
+        z-index: 1000;
+        padding: 10px;
+        width: 100%;
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #currentlist {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    #currentlist li {
+        display: block;
+        width: 100%;
+    }
+}
