@@ -1,24 +1,276 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Personal website of Ayush Tambde">
-    <title>ayush tambde</title>
-    <script type="module" crossorigin src="/assets/index-BMcfSYuw.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Br_1QQjH.css">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          processEscapes: true
-        }
-      });
-    </script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Personal website of Ayush Tambde" />
+        <title>AlphaZero-style Search Distillation for Language Models</title>
+        <style>
+            :root {
+                --text: #111;
+                --muted: #666;
+                --line: #ddd;
+                --link: #000;
+                --bg: #fff;
+                --max-width: min(100%, 700px);
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Georgia, 'Times New Roman', serif;
+                color: var(--text);
+                background: var(--bg);
+                line-height: 1.6;
+            }
+
+            body {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 2.5rem 1.2rem;
+            }
+
+            a {
+                color: var(--link);
+                text-decoration: none;
+                border-bottom: 1px solid transparent;
+            }
+
+            a:hover {
+                border-bottom-color: var(--text);
+            }
+
+            h1,
+            h2,
+            h3 {
+                margin: 0 0 0.6rem;
+                font-weight: 600;
+                line-height: 1.3;
+            }
+
+            h1 {
+                font-size: 1.95rem;
+            }
+
+            h2 {
+                margin-top: 1.4rem;
+                font-size: 1.35rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            p {
+                margin: 0 0 0.8rem;
+                max-width: var(--max-width);
+            }
+
+            ul,
+            ol {
+                max-width: var(--max-width);
+                margin: 0.35rem 0 0.9rem;
+                padding-left: 1.2rem;
+            }
+
+            li {
+                margin-bottom: 0.4rem;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                max-width: var(--max-width);
+                margin: 0.8rem 0 1.2rem;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            th,
+            td {
+                border: 1px solid var(--line);
+                padding: 0.45rem 0.55rem;
+                text-align: left;
+                vertical-align: top;
+                font-size: 0.94rem;
+            }
+
+            th {
+                background: #fafafa;
+            }
+
+            code {
+                font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+                font-size: 0.93em;
+            }
+
+            .blogPostImage {
+                width: min(100%, 760px);
+                height: auto;
+                display: block;
+                margin: 0.2rem 0 1rem;
+            }
+
+            .blogTagToken {
+                color: #444;
+            }
+
+            .katex {
+                font-size: 1.08em;
+            }
+
+            .katex-display {
+                font-size: 1.14em;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            @media only screen and (max-width: 600px) {
+                body {
+                    padding: 2rem 0.8rem 2rem;
+                }
+
+                .katex {
+                    font-size: 1.18em;
+                }
+
+                .katex-display {
+                    font-size: 1.28em;
+                }
+
+                table th,
+                table td {
+                    font-size: 0.88rem;
+                }
+            }
+        </style>
+        <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+    </head>
+    <body>
+        <main>
+    <p><a href="/blog">← Back to all posts</a> | <a href="/">Home</a></p>
+    <article>
+      <h1>AlphaZero-style Search Distillation for Language Models</h1>
+      <p>Game-playing neural networks like AlphaZero achieve superhuman performance in board games by augmenting the raw policy with a test-time search harness and distilling the stronger, augmented policy back into the network. So why aren’t similar techniques used in language modelling today? The DeepSeek authors mention they found limited success with MCTS.</p>
+      <p><a href="https://finbarr.ca/request-for-research-puct/">Finbarr Timbers&apos; work</a> discusses why this choice of MCTS variant might be difficult.</p>
+      <p>The purpose of this post is to explore two questions:</p>
+      <ol>
+        <li>Is it possible that search distillation actually improves language model reasoning?</li>
+        <li>How does it perform relative to standard language RL methods, e.g. GRPO?</li>
+      </ol>
+      <p>To explore this I applied MCTS across reasoning steps to Qwen-2.5-1.5B-Instruct to search for stronger trajectories and distill these back into the model via an online PPO loop. On the task of Countdown, a combinatorial arithmetic game, the distilled model (evaluated without a search harness) achieves an asymptotic mean@16 eval score of 11.3%, compared to 8.4% for CISPO and 7.7% for best-of-N. Relative to the pre-RL instruct model (3.1%), this is an 8.2 percentage point improvement.</p>
+      <p>The low absolute scores reflect the fact that these are small scale experiments on a 1.5B model. I want to use this post as a 1/N, and hope to see these scores increase in subsequent blog posts as I use larger models and compute budgets.</p>
+
+      <h2>Countdown</h2>
+      <p>I initially tried using GSM8K as the environment to test this method, but found minimal differences between GRPO and MCTS to make a strong claim either way. Instead, I decided to go with the game of <a href="https://en.wikipedia.org/wiki/Countdown_(game_show)">Countdown</a> as our environment. The premise is simple: given a set of <strong>N</strong> positive integers, use standard operations (<code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>) to compute a particular target. Why Countdown? The hypothesis is that combinatorial problems benefit more from the sort of parallel adaptive reasoning tree search enables, as opposed to say, GSM8K where sequential reasoning also leads to effective outcomes. We train on a dataset of 20,000 samples, and evaluate on a test set of 820 samples. Each sample consists of four input integers, between 1 and 13.</p>
+      <p>I found that using a sparse reward (0/1 for correctness) during training results in unstable training. Switching to a dense reward function:</p>
+      <p>$1.0 - 2 cdot min(\frac{|t - p|}{t}, 1.0)$ if formatting is correct, else $-1.0$</p>
+      <p>Here, $t$ is the true target and $p$ is the predicted target. However, evaluation still uses the sparse reward function, since we&apos;d like to be able to intuit the scores.</p>
+
+      <h2>Monte Carlo Tree Search</h2>
+      <p>The MCTS algorithm has been covered in-depth by others, so I&apos;m going to skip a detailed description: for the purposes of this post I&apos;d like to focus on the delta between classical MCTS and the method I tried. Briefly speaking, MCTS iteratively builds a search tree to intelligently explore the action space, guided by a value function. For readers who want to read more, I highly recommend the <a href="https://www.nature.com/articles/nature24270">AlphaGo Zero paper</a>.</p>
+      <p>Board games have a relatively meaningful action space, i.e. each move in chess tends to have a substantial effect on whether the player wins or not. Contrast that to language modelling, where many tokens in a reasoning trace act as fillers or syntactic sugar, and branching from the top-k logits (or conditioning on an entropy threshold) doesn&apos;t always result in search diversity. Imagine a state where the next probable tokens are “but”, “however”, “yet” etc; we would end up spending computationally expensive resources to build prohibitively large search trees with marginal benefit on a per-token basis.</p>
+      <p>I prefer the approach introduced by <a href="https://arxiv.org/abs/2305.10601">Tree-of-Thoughts (Yao et al., 2023)</a> to search over possible next reasoning steps. In this formulation each node-state is a sequence of contiguous tokens:</p>
+      <ul>
+        <li>The <strong>root node</strong> corresponds to the input prompt</li>
+        <li><strong>Intermediate nodes</strong> correspond to reasoning steps: <code class=&quot;blogTagToken&quot;>&amp;lt;step&amp;gt;...&amp;lt;/step&amp;gt;</code></li>
+        <li><strong>Terminal nodes</strong> correspond to answers: <code class=&quot;blogTagToken&quot;>&amp;lt;answer&amp;gt;...&amp;lt;/answer&amp;gt;</code></li>
+      </ul>
+      <p>In the spirit of investigating more scaling “knobs”, my implementation uses parallel MCTS, where N agents share the same per-sample search tree and use virtual losses to encourage search diversity.</p>
+      <p>Starting from each leaf node, we produce <strong>K completions</strong> until the stop tag <code class=&quot;blogTagToken&quot;>&amp;lt;/step&amp;gt;</code> is encountered. These K sequences form our action space for that particular node.</p>
+      <p>Since pUCT requires action-level priors, we compute <strong>sequence-level summed logprobs</strong> and apply the softmax function to get relative priors. These play nice since raw cumulative sequence probabilities become vanishingly tiny and numerically unstable.</p>
+      <p>MCTS also generally uses a value head $V(s_t)$ that improves over training and helps guide the search process to better trajectories. This is implemented as an <strong>MLP</strong> followed by a <strong>tanh</strong> function applied to the <strong>final hidden state</strong> of the transformer.</p>
+
+      <h3>Trajectory Selection</h3>
+      <p>Normally with board game MCTS, the training signal comes from minimising KL divergence between the search policy at the root node and the raw policy the model predicts. However, since there is a mismatch in the granularity of our action space relative to the raw model action space (reasoning steps vs. tokens), we need to do something else. The approach I use is that after all workers complete <strong>M iterations</strong> of the algorithm for a particular sample, they perform a <strong>greedy selection</strong> process:</p>
+      <ul>
+        <li>Starting from the root, select a trajectory by <strong>maximum visit count</strong></li>
+        <li>Submit this trajectory to a shared buffer to be used for PPO training</li>
+      </ul>
+
+      <h2>Training</h2>
+      <p>Workers designated as “trainers” asynchronously pull samples from the shared buffer. They use the AdamW optimiser and perform a single PPO inner step for each batch of B samples, with CISPO as our loss type.</p>
+      <p>The training objective is to minimise the total loss $L_{total}$:</p>
+      <p>$L_{total} = c_{ppo} L_{ppo} + c_{value} L_{value} + c_{KL}, mathbb{D}_{KL}(pi_	heta midmid pi_{ref})$</p>
+      <p>$L_{cispo} = -mathbb{E}[sg(min(\frac{pi_	heta(a_t | s_t)}{pi_{old}(a_t | s_t)}), epsilon) \cdot A_t cdot log pi_	heta(a_t | s_t) ]$</p>
+      <p>where $A_t = r_{terminal} - sg\left(V_{old}(s_t)\right)$ is a token level advantage (we assign the same terminal reward to each token). I didn&apos;t use GAE because reasoning traces can extend to thousands of tokens, and with a terminal reward, the early tokens will get exponentially discounted to negligibly small values.</p>
+      <p>$L_{value} = mathbb{E}[(V(s_t) - r)^2]$</p>
+      <p>$mathbb{D}_{KL}(pi_	heta mid mid pi_{ref}) = rac{pi_	heta(a_t | s_t)}{pi_{ref}(a_t | s_t)} - log rac{pi_	heta(a_t | s_t)}{pi _{ref}(a_t | s_t)} - 1$</p>
+      <p>We run the training process until the eval score plateaus.</p>
+
+      <h3>Infrastructure</h3>
+      <p>All experiments were performed on a 8xH100 node from Andromeda. For MCTS, six of the GPUs are designated as generators, while two are trainers. A Rust worker samples questions from the dataset and submits inference requests to a generator pool exposed via gRPC. They write the selected trajectories to a Redis stream; trainers iteratively pull samples from here. Weights are synced between generators and trainers every 8 gradient steps using Redis pub/sub.</p>
+
+      <h2>Baselines</h2>
+      <p>I ran a <strong>CISPO</strong> baseline with a global batch size of 128 samples and a group size of 16, resulting in an effective batch size of 2048. Logits were computed in float32 as per ScaleRL. Again, training ran until the eval score plateaued. All eight GPUs were used to train CISPO and there was no trainer/generator split.</p>
+      <p>To isolate the value-add of the tree structure, I ran experiments where the trajectories submitted to our training buffer were selected via “best-of-N” (N=64) instead of tree search.</p>
+
+      <h2>Results</h2>
+      <p><img class="blogPostImage" src="/blog-countdown-results.png" alt="Countdown mean@16 evaluation curves for MCTS-distilled policy, CISPO, and best-of-N" /></p>
+      <p>We use mean@16 to evaluate the model. This means running 16 generations for each eval prompt, grading them with a sparse 0/1 reward, and averaging the results. During evaluation the MCTS-distilled policy with no search harness achieves an asymptotic mean@16 score of 11.3%, while the CISPO model asymptotes at 8.4%, and Best-of-N performs the worst, plateauing at 7.7%.</p>
+      <p>Surprisingly, I also found that despite the training reward being significantly higher, “best-of-N” distillation underperforms both CISPO and MCTS on the eval suite. While it&apos;s not entirely clear why, we can theorise: if our model has a 98% chance of making at least one reasoning error during its thinking trace, there&apos;s still a 1 - 0.98^{64} approx 72.6\% chance of selecting at least one correct trajectory. But if there&apos;s no incentive to produce robust reasoning every time, it&apos;s unlikely the model will learn to develop strategies that improve its single-shot score.</p>
+      <p>In secondary school I used a number of techniques to keep track of intermediate steps when solving maths problems. This significantly reduced the probability of making “dumb mistakes” in exams. If I had the option to take the exam multiple times I would never have adopted those techniques!</p>
+
+      <h2>Code</h2>
+      <p>All code is open source and can be found <a href="https://github.com/at2005/llm-mcts">here</a>.</p>
+
+      <h2>Future Directions</h2>
+      <p>So what does this mean? The part that excites me here are the additional reasoning knobs we can tune, like the number of parallel workers per tree, or the number of MCTS iterations. I haven&apos;t tuned these properly, other than dialling them up to reasonably high values. So I want to explore this direction further! There&apos;s plenty of work to be done scaling this method and charting empirical trends to evaluate its potential for larger models and compute budgets. <a href="mailto:tambdeayush@gmail.com">Reach out</a> if you would like to collaborate!</p>
+      <p>Now for the caveats: it&apos;s possible this is a “small model phenomenon”, and the method doesn&apos;t scale as well as GRPO for larger models etc. Is it possible to tune the GRPO (CISPO) baseline to match MCTS? Perhaps, but ScaleRL found that most hyperparameters for GRPO adjust compute efficiency, not the final reward ceiling.</p>
+
+      <h2>Acknowledgements</h2>
+      <p>I&apos;d like to thank the <a href="https://andromeda.ai/">Andromeda team</a> and <a href="https://www.molly.info/">Molly Mielke McCarthy</a> for sponsoring compute for this project, as well as Tom McCarthy and Joe Melkonian for reading over early drafts of this post and offering valuable feedback. I&apos;d also like to thank Finbarr Timbers for the blog post that acted as the impetus for this work.</p>
+
+      <h2>Table of Values</h2>
+      <table>
+        <thead>
+          <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Base Model</td><td>Qwen-2.5-1.5B-Instruct</td><td>Foundation model used for experiments</td></tr>
+          <tr><td>Training Dataset Size</td><td>20,000 samples</td><td>Number of Countdown problems for training</td></tr>
+          <tr><td>Evaluation Set Size</td><td>820 samples</td><td>Number of problems in eval set</td></tr>
+          <tr><td>N (integers per problem)</td><td>4</td><td>Number of integers in each Countdown problem</td></tr>
+          <tr><td>Input Bounds</td><td>[1, 13]</td><td>Range for input integers</td></tr>
+          <tr><td>MCTS Workers (N agents)</td><td>16</td><td>Number of parallel agents sharing search tree</td></tr>
+          <tr><td>Completions per Node (K)</td><td>4</td><td>Number of candidate sequences generated at each leaf</td></tr>
+          <tr><td>MCTS Iterations (M)</td><td>100</td><td>Number of iterations per sample</td></tr>
+          <tr><td>Virtual Loss</td><td>1</td><td>The value added to visit counts to discourage other agents from exploring an active branch</td></tr>
+          <tr><td>MCTS/BoN Global Batch Size</td><td>32</td><td>Total batch size for MCTS/Best-of-N training</td></tr>
+          <tr><td>CISPO Global Batch Size</td><td>128</td><td>Total batch size for baseline training</td></tr>
+          <tr><td>CISPO Group Size</td><td>16</td><td>Number of trajectories per group</td></tr>
+          <tr><td>CISPO epsilon_high</td><td>5.0</td><td>Clipping parameter for CISPO</td></tr>
+          <tr><td>Best-of-N Sample Size</td><td>64</td><td>N, or the number of generations per sample for best-of-N baseline</td></tr>
+          <tr><td>Weight Sync Frequency</td><td>Every 8 gradient steps</td><td>How often weights sync between generators and trainers</td></tr>
+          <tr><td>Compute</td><td>8xH100 node</td><td>Hardware used for all experiments</td></tr>
+          <tr><td>$c_{puct}$</td><td>0.5</td><td>pUCT coefficient</td></tr>
+          <tr><td>$c_{KL}$</td><td>0.05</td><td>KL divergence weight</td></tr>
+          <tr><td>$c_{ppo}$</td><td>1.0</td><td>PPO objective weight</td></tr>
+          <tr><td>$c_{value}$</td><td>1.0</td><td>Value objective weight</td></tr>
+          <tr><td>$N_t$</td><td>2</td><td>Number of trainer processes</td></tr>
+          <tr><td>$N_g$</td><td>6</td><td>Number of generator processes</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </main>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" defer></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                if (window.renderMathInElement) {
+                    window.renderMathInElement(document.body, {
+                        delimiters: [
+                            { left: '\\$', right: '\\$', display: true },
+                            { left: '\\(', right: '\\)', display: false },
+                            { left: '\\[', right: '\\]', display: true },
+                            { left: '$', right: '$', display: false }
+                        ],
+                        throwOnError: false,
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>
