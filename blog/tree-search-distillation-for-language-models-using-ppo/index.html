@@ -118,6 +118,7 @@
     <p>So what does this mean? The part that excites me here is the additional reasoning knobs we can tune, like the number of parallel workers per tree, or the number of MCTS iterations. I haven&apos;t tuned these properly, but initial experiments showed increasing both these values led to significant performance gains. So I want to explore this direction further! There&apos;s plenty of work to be done scaling this method and charting empirical trends to evaluate its potential for larger models and compute budgets. <a href="mailto:tambdeayush@gmail.com">Reach out</a> if you would like to collaborate!</p>
 
     <p>Now for the caveats: it’s possible this is a “small model phenomenon”, and the method doesn’t scale as well as GRPO for larger models etc. Is it possible to tune the GRPO (CISPO) baseline to match MCTS? Perhaps, but ScaleRL found that most hyperparameters for GRPO adjust compute efficiency, not the final reward ceiling.</p>
+    <p>One might note that MCTS uses more inference compute on a per-sample basis than GRPO: of course it performs better! However, the goal here is not to make an apples-to-apples compute comparison; yes, MCTS does use more inference-time compute, but it also gives us additional levers for applying/scaling that compute and raising the reward ceiling. Whereas it's not obvious to me that throwing 100x more compute at GRPO would have turned the plateau into a hockey stick.</p>
 
     <h2>Acknowledgements</h2>
 
