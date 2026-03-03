@@ -62,7 +62,7 @@
     <p>This approach shares similarities with <a href="https://arxiv.org/html/2309.17179v2">TS-LLM (Feng et al., 2023)</a>, which also combines AlphaZero-style tree search with a learned value function over sentence-level actions.</p>
     <p>The key differences are:</p>
     <ol>
-      <li>Using online RL (CISPO/PPO) rather than offline SFT for distillation, enabling continuous asynchronous training during search</li>
+      <li>Using online RL (CISPO/PPO) rather than SFT for distillation</li>
       <li>Parallel MCTS with virtual losses as an additional scaling axis</li>
     </ol>
 
