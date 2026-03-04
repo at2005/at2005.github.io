@@ -13,7 +13,7 @@
     </head>
     <body>
         
-      <div class="initMsg" style="padding:20px;max-width:800px;margin:0 auto;font-family:'Times New Roman';line-height:1.6;">
+      <div class="initMsg" style="padding:20px;max-width:1200px;margin:0 auto;font-family:'Times New Roman';line-height:1.6;">
         <p><a href="/blog/">← Back to all posts</a> | <a href="/">Home</a></p>
         <article class="blogPost">
     <h1>Tree Search Distillation for Language Models using PPO</h1>
@@ -157,6 +157,37 @@
         <tr><td>N<sub>g</sub></td><td>6</td><td>Number of generator processes</td></tr>
       </tbody>
     </table>
+
+    <h2>Appendix: Experimental Curves</h2>
+    <p>Note that we use a different logging cadence for each run, which is partially why the x-axis limits differ. We train the models until the eval score plateaus.</p>
+
+    <h3>Evaluation</h3>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/mcts-eval.png" alt="MCTS mean@16 evaluation by step" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">MCTS mean@16 evaluation curve.</figcaption>
+    </figure>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/grpo-eval.png" alt="GRPO mean@16 evaluation by step" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">GRPO/CISPO mean@16 evaluation curve.</figcaption>
+    </figure>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/bon-eval.png" alt="Best-of-N mean@16 evaluation by step" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">Best-of-N mean@16 evaluation curve.</figcaption>
+    </figure>
+
+    <h3>Training</h3>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/mcts-reward-train.png" alt="MCTS reward by iteration" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">MCTS reward-training curve.</figcaption>
+    </figure>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/grpo-train-reward.png" alt="GRPO reward by iteration" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">GRPO/CISPO reward-training curve.</figcaption>
+    </figure>
+    <figure style="margin:0 0 2rem; text-align:center">
+      <img class="blogPostImage" src="/plots-mcts/bon-reward-train.png" alt="Best-of-N reward by iteration" style="width:100%;max-width:100%;height:auto;" />
+      <figcaption style="margin:.3rem 0 0; color:#444; font-size:.85rem">Best-of-N reward-training curve.</figcaption>
+    </figure>
     </article>
       </div>
     
